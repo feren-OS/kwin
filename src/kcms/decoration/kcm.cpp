@@ -239,6 +239,12 @@ void KCMKWinDecoration::setTheme(int index)
     if (dataIndex.isValid()) {
         settings()->setTheme(m_proxyThemesModel->data(dataIndex, KDecoration2::Configuration::DecorationsModel::ThemeNameRole).toString());
         settings()->setPluginName(m_proxyThemesModel->data(dataIndex, KDecoration2::Configuration::DecorationsModel::PluginNameRole).toString());
+
+        if (m_proxyThemesModel->data(dataIndex, KDecoration2::Configuration::DecorationsModel::PluginNameRole).toString() == "org.kde.kwin.aurorae" || m_proxyThemesModel->data(dataIndex, KDecoration2::Configuration::DecorationsModel::PluginNameRole).toString() == "org.kde.smaragd") {
+            std::system("/usr/bin/feren-theme-tool-plasma disableshadowfix");
+        } else {
+            std::system("/usr/bin/feren-theme-tool-plasma shadowfix");
+        }
         Q_EMIT themeChanged();
     }
 }
